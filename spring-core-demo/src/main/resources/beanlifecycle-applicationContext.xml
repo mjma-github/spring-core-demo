@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+	<!-- Define your beans here -->
+	<bean id="myFortune" class="com.mj.springdemo.xml.fortuneservice.HappyFortuneService"></bean>
+	<bean id="randomFortune" class="com.mj.springdemo.xml.fortuneservice.RandomFortuneService"></bean>
+
+	<!-- Post-construct and pre-destroy custom lifecycle methods for a bean -->
+	<!-- Note: destroy-method will only be called if context.close() is called -->
+	<!--  Note: configured destroy method for beans with prototype scope is not called by spring -->
+	<bean id="myCoach" class="com.mj.springdemo.xml.coach.BasketballCoach" init-method="initCoach" destroy-method="destroyCoach">
+		<constructor-arg name="emailAddress" value="${coach.email}"></constructor-arg>
+		<constructor-arg name="team" value="${coach.team}"></constructor-arg>
+		<property name="fortuneService" ref="randomFortune"></property>
+	</bean>
+	
+</beans>
+
+
+
+
+

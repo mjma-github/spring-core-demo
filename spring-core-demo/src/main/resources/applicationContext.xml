@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+    http://www.springframework.org/schema/context
+    http://www.springframework.org/schema/context/spring-context.xsd">
+    
+    <!-- load the properties file -->
+    <context:property-placeholder location="classpath:sport2.properties"/>
+    <context:property-placeholder location="classpath:sport.properties"/>
+
+	<!-- Define your beans here -->
+	<bean id="myFortune" class="com.mj.springdemo.xml.fortuneservice.HappyFortuneService"></bean>
+	<bean id="randomFortune" class="com.mj.springdemo.xml.fortuneservice.RandomFortuneService"></bean>
+
+	<!-- <bean id="myCoach" class="com.mj.springdemo.xml.coach.BaseballCoach" /> -->
+
+	<!-- Constructor injection -->
+	<!-- <bean id = "myCoach" class="com.mj.springdemo.xml.coach.TrackCoach"> 
+			<constructor-arg ref="myFortune"></constructor-arg> 
+	</bean> -->
+
+	<!-- Constructor and Setter injection -->
+	<!-- 
+	<bean id="myCoach" class="com.mj.springdemo.xml.coach.BasketballCoach">
+		<constructor-arg name="emailAddress" value="tim.cole@gaynebra.com"></constructor-arg>
+		<constructor-arg name="team" value="Gaynebra"></constructor-arg>
+		<property name="fortuneService" ref="myFortune"></property>
+	</bean> -->
+	
+	<!-- Literal value injection using properties file -->
+	<!-- Note: for duplicate properties in multiple property files, the first property placeholder specified is used -->
+	<bean id="myCoach" class="com.mj.springdemo.xml.coach.BasketballCoach" >
+		<constructor-arg name="emailAddress" value="${coach.email}"></constructor-arg>
+		<constructor-arg name="team" value="${coach.team}"></constructor-arg>
+		<property name="fortuneService" ref="randomFortune"></property>
+	</bean>
+</beans>
+
+
+
+
+
